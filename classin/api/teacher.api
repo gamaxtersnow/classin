@@ -1,0 +1,53 @@
+syntax = "v1"
+
+info (
+	title:   "教师相关数据接口"
+	desc:    "教师相关数据接口"
+	author:  "任兴"
+	email:   "renxing@meishiedu.com"
+	version: "1.0"
+)
+
+import "./common.api"
+
+type TeacherServiceMapRequest {
+	Id    int    `json:"id,optional"` //老师id
+	Phone string `json:"phone"` //老师手机号
+}
+
+type TeacherServiceMapResponse {
+	ErrorInfo ErrorInfo               `json:"error_info"` //错误信息
+	Data      []TeacherServiceMapData `json:"data"` //老师服务列表数据
+}
+
+type TeacherServiceMapData {
+	TeacherId           int     `json:"teacher_id"` //老师id
+	TeacherName         string  `json:"teacher_name"` //老师姓名
+	TeacherPhone        string  `json:"teacher_phone"` //老师手机号
+	CooperationTypeId   int     `json:"cooperation_type_id"` //1全职2兼职
+	CooperationTypeName string  `json:"cooperation_type_name"` //全职或兼职
+	ServiceTypeId       int     `json:"service_type_id"` //服务类型id
+	ServiceTypeName     string  `json:"service_type_name"` //服务业务,例如:语培/择校
+	CategoryId          int     `json:"category_id"` //服务科目id
+	CategoryName        string  `json:"category_name"` //服务科目,例如:雅思/托福
+	ItemId              int     `json:"item_id"` //服务内容id
+	ItemName            string  `json:"item_name"` //服务内容,例如:听力/口语
+	Price               float64 `json:"price"` //服务价格
+}
+
+type TeacherTypeRequest {
+	multiPhone string `json:"multi_phone"`
+}
+
+type TeacherTypeResponse {
+	ErrorInfo ErrorInfo         `json:"error_info"` //错误信息
+	Data      []TeacherTypeData `json:"data"` //老师类型列表数据
+}
+
+type TeacherTypeData {
+	Id             int    `json:"id"` //老师id
+	Phone          string `json:"phone"` //老师手机号
+	CoopLavel      string `json:"coopLavel"` //老师类型名称
+	CoopLavelValue int    `json:"coopLavelValue"` //老师类型值
+}
+

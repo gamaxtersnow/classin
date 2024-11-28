@@ -1,0 +1,63 @@
+syntax = "v1"
+
+import "./common.api"
+
+type FileByIdReq {
+	Id int64 `json:"id"` // 文件ID
+}
+
+type FileByUUIDReq {
+	Uuid string `json:"uid"` // 文件UUID
+}
+
+type FileInfoResp {
+	ErrorInfo ErrorInfo `json:"error_info"` //错误码
+	FileInfo  FileInfo  `json:"file_info"` //文件信息
+}
+
+type FileInfo {
+	Uuid     string `json:"uuid"` // 文件uuid
+	Name     string `json:"name"` // 文件名称
+	FileType string `json:"file_type"` //文件类型
+}
+
+type DeleteFileByIdReq {
+	Id int64 `json:"id"` // 文件ID
+}
+
+type DeleteFileByUUIDReq {
+	Uuid string `json:"uid"` // 文件UUID
+}
+
+type DeleteFileResp {
+	ErrorInfo ErrorInfo `json:"error_info"` //错误码
+}
+
+type FileAddressByUUIDReq {
+	Uuid       string `json:"uid"` // 文件UUID
+	ExpireTime int64  `json:"expire_time"` //文件有效期
+}
+
+type FileAddressResp {
+	ErrorInfo ErrorInfo `json:"error_info"` //错误码
+	Address   string    `json:"address"` //文件下载地址
+}
+
+type FileViewByUUIDReq {
+	Uuid       string `json:"uid"` //文件id
+	ExpireTime int64  `json:"expire_time,optional,default=3600"` //token 有效期
+}
+
+type FileViewResp {
+	ErrorInfo    ErrorInfo    `json:"error_info"` //错误码
+	FileViewInfo FileViewInfo `json:"file_view_info"` //文件预览信息
+}
+
+type FileViewInfo {
+	Token   string `json:"token"` //文件下载地址
+	Name    string `json:"name"` //文件名称
+	Key     string `json:"file_key"` //文件key
+	Address string `json:"file_address"` //文件地址
+	Type    string `json:"file_type"` //文件类型
+}
+

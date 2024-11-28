@@ -1,0 +1,220 @@
+syntax = "v1"
+
+import "./common.api"
+
+type CourseResponseCourse {
+	ClassId        int64                     `json:"class_id"`
+	CourseId       int64                     `json:"course_id"`
+	ClassName      string                    `json:"class_name"`
+	CourseName     string                    `json:"course_name"`
+	ClassStartTime int64                     `json:"class_start_time"`
+	ClassEndTime   int64                     `json:"class_end_time"`
+	TeacherInfo    CourseResponseTeacherInfo `json:"teacher_info"`
+	SyncStatus     int64                     `json:"sync_status"`
+	SeatNum        int64                     `json:"seat_num"`
+	IsHd           int64                     `json:"is_hd"`
+	SyncStatusName string                    `json:"sync_status_name"`
+}
+
+type CourseResponseTeacherInfo {
+	Mobile string `json:"mobile"`
+	Name   string `json:"name"`
+}
+
+type LessonClipVodInfo {
+	AllCount   int64            `json:"all_count"`
+	LessonInfo LessonInfo       `json:"lesson_info"`
+	FileList   []LessonClipFile `json:"file_list"`
+}
+
+type LessonInfo {
+	CourseName string `json:"course_name"`
+	ClassName  string `json:"class_name"`
+}
+
+type LessonClipFile {
+	ClassId        int64  `json:"class_id"`
+	CourseId       int64  `json:"course_id"`
+	FileId         string `json:"file_id"`
+	SequenceNumber int64  `json:"sequence_number"`
+	FileName       string `json:"file_name"`
+	OriginUrl      string `json:"origin_url"`
+	Objectkey      string `json:"object_key"`
+	FileSize       int64  `json:"file_size"`
+	FileStatus     int64  `json:"file_status"`
+	FileStatusName string `json:"file_status_name"`
+}
+
+type ClassJsonDetail {
+	CourseId  int64           `json:"courseId"`
+	ClassJson []ClassJsonInfo `json:"classJson"`
+}
+
+type SetNumRequest {
+	Cookie     string       `json:"Cookie"`
+	CourseList []CourseList `json:"courseList"`
+}
+
+type CourseList {
+	CourseId  int64           `json:"courseId"`
+	ClassJson []ClassJsonInfo `json:"classJson"`
+}
+
+type ClassJsonInfo {
+	ClassId    int64         `json:"classId"`
+	SeatNum    int64         `json:"seatNum"`
+	IsHd       int64         `json:"isHd"`
+	IsDc       int64         `json:"isDc"`
+	VideoArray VideoJsonInfo `json:"videoArray"`
+}
+
+type VideoJsonInfo {
+	RecordState int64 `json:"recordState"`
+	OpenState   int64 `json:"openState"`
+}
+
+type SetNumResponse {
+	ErrorInfo ErrorInfo    `json:"error_info"`
+	Data      []SetNumInfo `json:"data"`
+}
+
+type SetNumInfo {
+	ClassId    int64  `json:"class_id"`
+	ClassName  string `json:"class_name"`
+	ClassBtime string `json:"class_btime"`
+	ErrorCode  int64  `json:"errno"`
+	ErrorMsg   string `json:"error"`
+}
+
+type SyncLessonRequest {
+	ClassName       string `json:"class_name,optional"`
+	CourseName      string `json:"course_name,optional"`
+	CourseStartDate int64  `json:"course_start_date"`
+	CourseEndDate   int64  `json:"course_end_date"`
+	Cookie          string `json:"cookie"`
+}
+
+type SyncLessonResponse {
+	ErrorInfo ErrorInfo      `json:"error_info"`
+	Data      SyncLessonInfo `json:"data"`
+}
+
+type SyncLessonInfo {
+	ClassName       string `json:"class_name"`
+	CourseName      string `json:"course_name"`
+	CourseStartDate int64  `json:"course_start_date"`
+	CourseEndDate   int64  `json:"course_end_date"`
+	Total           int64  `json:"total"`
+}
+
+type LessonSyncJobReq {
+	UserAgent       string `json:"user-agent"`
+	ClassName       string `json:"class_name"`
+	CourseName      string `json:"course_name"`
+	CourseStartDate int64  `json:"course_start_date"`
+	CourseEndDate   int64  `json:"course_end_date"`
+	Cookie          string `json:"cookie"`
+	Total           int64  `json:"total"`
+	SourceType      int64  `json:"source_type"`
+}
+
+type LessonSyncReq {
+	UserAgent      string `json:"user-agent"`
+	ClassId        int64  `json:"class_id"`
+	CourseId       int64  `json:"course_id"`
+	ClassName      string `json:"class_name"`
+	CourseName     string `json:"course_name"`
+	ClassStartTime int64  `json:"class_start_time"`
+	ClassEndTime   int64  `json:"class_end_time"`
+	TeacherName    string `json:"teacher_name"`
+	TeacherMobile  string `json:"teacher_mobile"`
+	Cookie         string `json:"cookie"`
+	SourceType     int64  `json:"source_type"`
+	SeatNum        int64  `json:"seat_num"`
+	IsHd           int64  `json:"is_hd"`
+	IsDc           int64  `json:"is_dc"`
+}
+
+type LessonClipSyncReq {
+	UserAgent  string `json:"user_agent"`
+	ClassId    int64  `json:"class_id,"`
+	CourseId   int64  `json:"course_id"`
+	Cookie     string `json:"cookie"`
+	SourceType int64  `json:"source_type"`
+}
+
+type SignUrlRequest {
+	Objectkey string `json:"object_key"`
+}
+
+type SignUrlResponse {
+	ErrorInfo ErrorInfo `json:"error_info"`
+	Data      SignUrl   `json:"data"`
+}
+
+type SignUrl {
+	Url string `json:"url"`
+}
+
+type LoginRequest {
+	Cookie string `json:"classin-Authorization"`
+}
+
+type LoginResponse {
+	ErrorInfo ErrorInfo `json:"error_info"`
+}
+
+type ErrorResponse {
+	ErrorInfo ErrorInfo `json:"error_info"`
+}
+
+type CourseRequest {
+	ClassName       string `json:"class_name,optional"`
+	CourseName      string `json:"course_name,optional"`
+	TeacherName     string `json:"teacher_name,optional"`
+	TeacherMobile   int64  `json:"teacher_mobile,optional"`
+	CourseStartDate int64  `json:"course_start_date,optional"`
+	CourseEndDate   int64  `json:"course_end_date,optional"`
+	SeatNum         int64  `json:"seat_num,optional"`
+	isHd            int64  `json:"is_hd,optional"`
+	Page            int    `json:"page,default=1"`
+	PageSize        int    `json:"prepage,default=20"`
+}
+
+type ClassSearchKey {
+	keyName  string `json:"keyName"`
+	KeyValue string `json:"keyValue"`
+}
+
+type TimeRange {
+	StartTime int64 `json:"startTime"`
+	EndTime   int64 `json:"endTime"`
+}
+
+type Sort {
+	SortName  string `json:"sortName"`
+	SortValue int64  `json:"sortValue"`
+}
+
+type CourseResponse {
+	ErrorInfo ErrorInfo  `json:"error_info"`
+	Data      CourseData `json:"data"`
+}
+
+type CourseData {
+	TotalClassNum int64                  `json:"total"`
+	ClassList     []CourseResponseCourse `json:"class_list"`
+}
+
+type LesssonClipRequest {
+	ClassId  int64 `json:"class_id,"`
+	CourseId int64 `json:"course_id"`
+	Page     int   `json:"page,default=1"`
+	PageSize int   `json:"prepage,default=20"`
+}
+
+type LessonClipResponse {
+	ErrorInfo ErrorInfo         `json:"error_info"`
+	VodInfo   LessonClipVodInfo `json:"data"`
+}
+

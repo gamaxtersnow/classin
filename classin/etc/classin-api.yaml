@@ -1,0 +1,90 @@
+Name: classin-api
+Host: 0.0.0.0
+Port: 8888
+MaxConns: 50
+Timeout: 20000
+FrontendDomain:
+ResourceCenterDomain: 
+Auth:
+  AccessSecret:
+  AccessExpire: 7200
+OfficeAuth:
+  AccessSecret:
+  AccessExpire: 7200
+Mysql:
+  DataSource:
+  OldcrmDataSource:
+cache_config: &cache_config
+  Host:
+  Pass: ""
+Cache:
+  - <<: *cache_config
+RabbitMq:
+  Uri:
+  Exchange: amq.topic
+  ExchangeType: topic
+  LessonSyncJobTopic:
+    RoutingKey: lesson.sync.job
+    Queue: lesson.sync.job
+    ConnName: classin-lesson-consumer
+    CTag: classin-lesson-sync-consumer
+  ClassInCourseTopic:
+    RoutingKey: classin.lesson
+    Queue: classin.lesson
+    ConnName:   classin-lesson-consumer
+    CTag:       classin-course-sync-consumer
+  ClassInLessonClipTopic:
+    RoutingKey: classin.lesson.clip
+    Queue: classin.lesson.clip
+    ConnName:   classin-lesson-consumer
+    CTag:       classin-lesson-clip-sync-consumer
+  OSSUploadLessonClipTopic:
+    RoutingKey: oss.upload.lesson.clip
+    Queue: oss.upload.lesson.clip
+    ConnName:   classin-lesson-consumer
+    CTag:       ms-add-lesson-clip-consumer
+  SendMsgTopic:
+    RoutingKey: qw.send.msg
+    Queue: qw.send.msg
+    ConnName: qw-msg
+    CTag: ms-qw-msg
+  ScheduleJobSyncTopic:
+    RoutingKey: school.schedule.job.sync
+    Queue: school.schedule.job.sync
+    ConnName: school-schedule-consumer
+    CTag: school-schedule-deal-sync-producer
+  ScheduleDataSyncTopic:
+    RoutingKey: school.schedule.data.sync
+    Queue: school.schedule.data.sync
+    ConnName: school-schedule-consumer
+    CTag: school-schedule-list-sync-consumer
+Oss:
+  OssAccessKeyId:
+  OssAccessKeySecret:
+  OssEndpoint:
+  BucketName:
+  IsCname: true
+
+XiaoxiaoApiConf:
+  UserName:
+  PassWord:
+  DomainAlias:
+  Device: pc
+  BaseUrl: https://xapi.xiaosaas.com/rest/opp
+  CacheConf:
+    - <<: *cache_config
+CrmApiConf:
+  UserId:
+  Email:
+  LoginUrl:
+  ApiUrl:
+  CacheConf:
+    - <<: *cache_config
+TiTanApiConf:
+  BaseUrl:
+  Secret:
+  Rate: 30000
+NotifyConf:
+  Platform: titan
+
+

@@ -1,0 +1,28 @@
+syntax = "v1"
+
+info (
+	title:   "客户相关数据接口"
+	desc:    "客户相关数据接口"
+	author:  "任兴"
+	email:   "renxing@meishiedu.com"
+	version: "1.0"
+)
+
+import "./common.api"
+
+type CustomerRequest {
+	Ids []int64 `json:"ids"` // 客户ID
+}
+
+type CustomerBasicResponse {
+	ErrorInfo ErrorInfo           `json:"error_info"` //错误码
+	Data      []CustomerBasicData `json:"data"` //客户信息
+}
+
+type CustomerBasicData {
+	Id            int64  `json:"id"` //客户ID
+	Name          string `json:"name"` //客户名称
+	Type          int64  `json:"type"` //客户类型  1 有效客户 2 在途客户 3 公海池
+	CustomerStage int64  `json:"customer_stage"` // 客户阶段 1线索 2资源 3商机 4已签约客户 5商机待确认
+}
+

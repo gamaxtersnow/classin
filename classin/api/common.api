@@ -1,0 +1,15 @@
+syntax = "v1"
+
+info (
+	title:   "class接口后端"
+	desc:    "公共编码"
+	author:  "wds"
+	email:   "wds@meishiedu.com"
+	version: "1.0"
+)
+
+type ErrorInfo {
+	ErrorCode int64  `json:"errno"` //错误码
+	ErrorMsg  string `json:"error"` //错误信息
+}
+

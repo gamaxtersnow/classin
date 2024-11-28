@@ -1,0 +1,21 @@
+syntax = "v1"
+
+import "./common.api"
+
+type UrlToPdfRequest {
+	Url      string  `json:"url"` //老师id
+	Delay    int64   `json:"delay,default=0"` //延迟时间
+	Scale    float64 `json:"scale,default=1"` //老师手机号
+	FileName string  `json:"file_name,default=output"` //文件名称
+}
+
+type UrlToPdfResponse {
+	ErrorInfo ErrorInfo `json:"error_info"` //错误信息
+	Data      PdfInfo   `json:"data"` //老师服务列表数据
+}
+
+type PdfInfo {
+	FileUrl   string `json:"file_url"` //文件url
+	ObjecktId string `json:"object_id"` //对象id
+}
+

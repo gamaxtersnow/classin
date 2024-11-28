@@ -1,0 +1,170 @@
+syntax = "v1"
+
+import (
+	"./api/classin.api"
+	"./api/school.api"
+	"./api/teacher.api"
+	"./api/customer.api"
+	"./api/utils.api"
+	"./api/file.api"
+)
+
+type TokenErrorInfo {
+	ErrorCode int64  `json:"code"` //错误码
+	ErrorMsg  string `json:"msg"` //错误信息
+}
+
+@server (
+	jwt:        Auth
+	middleware: UserAgentMiddleware
+)
+service classin-api {
+	@handler LoginHandler
+	post /login (LoginRequest) returns (LoginResponse)
+
+	@handler CourseListHandler
+	post /course/list (CourseRequest) returns (CourseResponse)
+
+	@handler LessonClipsHandler
+	post /lesson/clips (LesssonClipRequest) returns (LessonClipResponse)
+
+	@handler SignUrlHandler
+	post /oss/signurl (SignUrlRequest) returns (SignUrlResponse)
+
+	@handler SyncJob
+	post /lesson/sync (SyncLessonRequest) returns (SyncLessonResponse)
+
+	@handler SetNum
+	post /lesson/setNum (SetNumRequest) returns (SetNumResponse)
+}
+
+@server (
+	jwt:    Auth
+	prefix: school
+	group:  school
+)
+service classin-api {
+	@doc (
+		summary: "校区列表"
+	)
+	@handler CampusList
+	post /campus/list returns (CampusListResponse)
+
+	@doc (
+		summary: "校区教室列表"
+	)
+	@handler CampusRoomList
+	post /campus/room/list returns (CampusRoomListResponse)
+
+	@doc (
+		summary: "全部课程"
+	)
+	@handler AllCourses
+	post /course/all returns (CoursesResponse)
+
+	@doc (
+		summary: "全部老师"
+	)
+	@handler AllTeachers
+	post /teacher/all (TeacherReq) returns (TeachersResponse)
+
+	@doc (
+		summary: "全部助教"
+	)
+	@handler AllTeacherAssistants
+	post /teacher/assistant/all (TeacherReq) returns (TeacherAssistantsResponse)
+
+	@doc (
+		summary: "班级列表"
+	)
+	@handler GetClassList
+	post /class/list (ClassListRequest) returns (ClassListResponse)
+
+	@doc (
+		summary: "课表列表"
+	)
+	@handler ScheduleViews
+	post /schedule/views (ScheduleViewsRequest) returns (ScheduleViewsResponse)
+
+	@doc (
+		summary: "校校课表数据同步落库"
+	)
+	@handler ScheduleSync
+	post /schedule/sync (ScheduleSyncRequest) returns (ScheduleSyncResponse)
+
+	@doc (
+		summary: "课表导出"
+	)
+	@handler ScheduleExport
+	post /schedule/export (ScheduleExportRequest) returns (ScheduleExportResponse)
+
+	@doc (
+		summary: "查看文件链接"
+	)
+	@handler FilesSignUrl
+	get /files/sign/url (FileSignUrlRequest) returns (FileSignUrlResponse)
+
+	@doc (
+		summary: "新增排课获取老师和服务价格数据"
+	)
+	@handler MakeLessonGetTeacherPrice
+	post /makeLesson/teacherPrice (TeacherServiceMapRequest) returns (TeacherServiceMapResponse)
+}
+
+@server (
+	jwt:    Auth
+	prefix: school
+	group:  customer
+)
+service classin-api {
+	@doc (
+		summary: "查询客户基本信息"
+	)
+	@handler GetCustomerBasicData
+	post /customer/customerBasicData (CustomerRequest) returns (CustomerBasicResponse)
+}
+
+@server (
+	jwt:    Auth
+	prefix: school
+	group:  file
+)
+service classin-api {
+	@doc "根据id获取文件信息"
+	@handler GetFileById
+	post /file/getFileById (FileByIdReq) returns (FileInfoResp)
+
+	@doc "根据uuid获取文件信息"
+	@handler GetFileByUUID
+	post /file/getFileByUUID (FileByUUIDReq) returns (FileInfoResp)
+
+	@doc "根据id删除文件"
+	@handler DeleteFileById
+	post /file/deleteFileById (DeleteFileByIdReq) returns (DeleteFileResp)
+
+	@doc "根据uuid删除文件"
+	@handler DeleteFileByUUID
+	post /file/deleteFileByUUID (DeleteFileByUUIDReq) returns (DeleteFileResp)
+
+	@doc "根据uuid获取文件下载地址"
+	@handler GetFileAddressByUUID
+	post /file/getFileAddressByUUID (FileAddressByUUIDReq) returns (FileAddressResp)
+
+	@doc "根据uuid获取文件预览信息"
+	@handler GetFileViewByUUID
+	post /file/getFileViewByUUID (FileViewByUUIDReq) returns (FileViewResp)
+}
+
+@server (
+	jwt:    Auth
+	prefix: school
+	group:  utils
+)
+service classin-api {
+	@doc (
+		summary: "url转pdf"
+	)
+	@handler UrlToPdf
+	post /utils/urlToPdf (UrlToPdfRequest) returns (UrlToPdfResponse)
+}
+
